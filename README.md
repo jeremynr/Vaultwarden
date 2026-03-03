@@ -48,10 +48,11 @@ Then, on the domain your tunnel is running, go to:
 `Security -> Security Rules`
 
 and add a Custom Rule where:
-`Field` = `IP Source Address`
-`Operator` = `is in list`
-`Value` = Your List Name
-
+```
+Field = "IP Source Address"
+Operator = "is in list"
+Value = Your List Name
+```
 Ensure `Action` is `Block`
 
 
