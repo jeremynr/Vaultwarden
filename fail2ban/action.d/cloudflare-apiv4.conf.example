@@ -1,0 +1,17 @@
+[Init]
+account_id = 
+list_id = 
+rule_url = https://api.cloudflare.com/client/v4/accounts/<account_id>/rules/lists/<list_id>/items
+api_token = 
+
+[Definition]
+actionban = curl -s -X POST "<rule_url>" \
+            -H "Authorization: Bearer <api_token>" \
+            -H "Content-Type: application/json" \
+            --data '[{"ip": "<ip>", "comment": "Added by Fail2Ban"}]'
+actionunban = curl -X DELETE "<rule_url>" \
+     -H "Authorization: Bearer <api_token>" \
+     -H "Content-Type: application/json" \
+     -d '{"items": [{"id": "'$(curl -s -X GET "<rule_url>" \
+     -H "Authorization: Bearer <api_token>" | \
+     python3 -c "import sys, json; data=json.load(sys.stdin); [print(item['id']) for item in data['result'] if item.get('ip') == '<ip>']")'"}]}'

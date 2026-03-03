@@ -1,0 +1,7 @@
+[nginx-cloudflare]
+enabled = true
+filter = nginx-bad-auth
+logpath = /var/log/nginx/access.log
+maxretry = 3
+bantime = 86400
+action = cloudflare-apiv4
